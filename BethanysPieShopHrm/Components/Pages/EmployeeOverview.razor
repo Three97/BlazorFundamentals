@@ -1,0 +1,23 @@
+﻿@page "/employeeoverview"
+
+<PageTitle>Employee Overview</PageTitle>
+
+<h1>Employee Overview</h1>
+
+@attribute [StreamRendering(true)]
+
+@if (Employees == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        @foreach (var employee in Employees)
+        {
+            <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
+                <EmployeeCard Employee="employee"></EmployeeCard>
+            </div>
+        }
+    </div>
+}
