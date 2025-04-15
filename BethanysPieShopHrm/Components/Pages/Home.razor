@@ -9,5 +9,12 @@
 
 @foreach (var widgetType in Widgets)
 {
-    <DynamicComponent Type="widgetType"></DynamicComponent>
+    <ErrorBoundary>
+        <ChildContent>
+            <DynamicComponent Type="widgetType"></DynamicComponent>
+        </ChildContent>
+        <ErrorContent>
+            Something went awry
+        </ErrorContent>
+    </ErrorBoundary>
 }
