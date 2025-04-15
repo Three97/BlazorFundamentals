@@ -1,10 +1,17 @@
 using BethanysPieShopHRM.Components;
+using BethanysPieShopHRM.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddDbContextFactory<AppDbContext>(options =>
+{
+    options.UseSqlite(builder.Configuration.GetConnectionString("AppConnectionString"));
+});
 
 var app = builder.Build();
 
