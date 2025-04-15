@@ -12,9 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+var connectionString = builder.Configuration.GetConnectionString("AppConnectionString");
 builder.Services.AddDbContextFactory<AppDbContext>(options =>
 {
-    options.UseSqlite(builder.Configuration.GetConnectionString("AppConnectionString"));
+    options.UseSqlite(connectionString);
 });
 
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();

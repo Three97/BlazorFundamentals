@@ -10,7 +10,7 @@ public class EmployeeRepository : IEmployeeRepository, IDisposable, IAsyncDispos
 {
     private AppDbContext _dbContext;
     
-    public EmployeeRepository(DbContextFactory<AppDbContext> dbContextFactory)
+    public EmployeeRepository(IDbContextFactory<AppDbContext> dbContextFactory)
     {
         _dbContext = dbContextFactory.CreateDbContext();
     }

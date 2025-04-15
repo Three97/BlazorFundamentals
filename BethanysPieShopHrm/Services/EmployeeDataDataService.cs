@@ -13,7 +13,7 @@ public class EmployeeDataDataService : IEmployeeDataService
         this._employeeRepository = employeeRepository;
     }
     
-    public async Task<IEnumerable<Employee>> GetEmployees()
+    public async Task<IEnumerable<Employee?>> GetEmployees()
     {
         return await _employeeRepository.GetEmployees();
     }

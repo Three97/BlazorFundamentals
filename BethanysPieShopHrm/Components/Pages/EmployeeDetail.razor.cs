@@ -1,26 +1,26 @@
-﻿using BethanysPieShopHRM.Services;
+﻿using BethanysPieShopHRM.Contracts.Services;
 using BethanysPieShopHRM.Shared.Domain;
 using Microsoft.AspNetCore.Components;
 
-namespace BethanysPieShopHRM.Components.Pages
+namespace BethanysPieShopHRM.Components.Pages;
+
+public partial class EmployeeDetail
 {
-    public partial class EmployeeDetail
+    [Parameter]
+    public int EmployeeId { get; set; }
+
+    public Employee Employee { get; set; } = new Employee();
+
+    [Inject]
+    public IEmployeeDataService EmployeeDataService { get; set; }
+        
+    protected override async Task OnInitializedAsync()
     {
-        [Parameter]
-        public int EmployeeId { get; set; }
+        Employee = await EmployeeDataService.GetEmployeeById(EmployeeId);
+    }
 
-        public Employee Employee { get; set; } = new Employee();
-
-        protected override void OnInitialized()
-        {
-            Employee = MockDataService.Employees.Single(e => e.EmployeeId == EmployeeId);
-        }
-
-        private void ChangeHolidayState()
-        {
-            Employee.IsOnHoliday = !Employee.IsOnHoliday;
-        }
-
-
+    private void ChangeHolidayState()
+    {
+        Employee.IsOnHoliday = !Employee.IsOnHoliday;
     }
 }

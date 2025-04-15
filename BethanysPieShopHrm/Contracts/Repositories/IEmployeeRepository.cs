@@ -4,7 +4,7 @@ namespace BethanysPieShopHRM.Contracts.Repositories;
 
 public interface IEmployeeRepository
 {
-    Task<IEnumerable<Employee>> GetEmployees();
+    Task<IEnumerable<Employee?>> GetEmployees();
     
     Task<Employee?> GetEmployeeById(int id);
 }
