@@ -164,13 +164,20 @@
                 @*         <td>@item.PerformedTaskDescription</td> *@
                 @*     </tr> *@
                 @* } *@
-                <Virtualize Items="TimeRegistrations" Context="item">
-                    <tr>
-                        <td>@item.TimeRegistrationId</td>
-                        <td>@item.StartTime</td>
-                        <td>@item.EndTime</td>
-                        <td>@item.PerformedTaskDescription</td>
-                    </tr>
+                <Virtualize ItemsProvider="LoadTimeRegistrations" ItemSize="itemHeight">
+                    <ItemContent>
+                        <tr>
+                            <td>@context.TimeRegistrationId</td>
+                            <td>@context.StartTime</td>
+                            <td>@context.EndTime</td>
+                            <td>@context.PerformedTaskDescription</td>
+                        </tr>
+                    </ItemContent>
+                    <Placeholder>
+                        <tr>
+                            <td colspan="4" class="text-center">Loading...</td>
+                        </tr>
+                    </Placeholder>
                 </Virtualize>
                 </tbody>
             </table>

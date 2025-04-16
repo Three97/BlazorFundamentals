@@ -17,12 +17,14 @@ public class EmployeeRepository : IEmployeeRepository, IDisposable, IAsyncDispos
     
     public async Task<IEnumerable<Employee?>> GetEmployees()
     {
-        return await _dbContext.Employees.ToListAsync();
+        return await _dbContext.Employees
+            .ToListAsync();
     }
 
     public async Task<Employee?> GetEmployeeById(int id)
     {
-        return await _dbContext.Employees.SingleOrDefaultAsync(e => e.EmployeeId == id);
+        return await _dbContext.Employees
+            .SingleOrDefaultAsync(e => e.EmployeeId == id);
     }
 
     public void Dispose()

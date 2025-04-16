@@ -17,4 +17,14 @@ public class TimeRegistrationService : ITimeRegistrationService
     {
         return await _timeRegistrationRepository.GetTimeRegistrationsForEmployee(employeeId);
     }
+
+    public async Task<List<TimeRegistration>> GetPagedTimeRegistrationsForEmployee(int employeeId, int pageSize, int start)
+    {
+        return await _timeRegistrationRepository.GetPagedTimeRegistrationsForEmployee(employeeId, pageSize, start);
+    }
+
+    public async Task<int> GetTimeRegistrationCountForEmployee(int employeeId)
+    {
+        return await _timeRegistrationRepository.GetTimeRegistrationCountForEmployee(employeeId);
+    }
 }

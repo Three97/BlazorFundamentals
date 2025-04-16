@@ -16,7 +16,27 @@ public class TimeRegistrationRepository : ITimeRegistrationRepository, IDisposab
 
     public async Task<List<TimeRegistration>> GetTimeRegistrationsForEmployee(int employeeId)
     {
-        return await _appDbContext.TimeRegistrations.Where(t => t.EmployeeId == employeeId).OrderBy(t => t.StartTime).ToListAsync();
+        return await _appDbContext.TimeRegistrations
+            .Where(t => t.EmployeeId == employeeId)
+            .OrderBy(t => t.StartTime)
+            .ToListAsync();
+    }
+
+    public async Task<List<TimeRegistration>> GetPagedTimeRegistrationsForEmployee(int employeeId, int pageSize, int start)
+    {
+        return await _appDbContext.TimeRegistrations
+            .Where(t => t.EmployeeId == employeeId)
+            .OrderBy(t => t.StartTime)
+            .Skip(start)
+            .Take(pageSize)
+            .ToListAsync();
+    }
+
+    public async Task<int> GetTimeRegistrationCountForEmployee(int employeeId)
+    {
+        return await _appDbContext.TimeRegistrations
+            .Where(t => t.EmployeeId == employeeId)
+            .CountAsync();
     }
 
     public void Dispose()
