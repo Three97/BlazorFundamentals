@@ -138,5 +138,43 @@
         </div>
     </div>
 
+@if (TimeRegistrations.Count == 0)
+{
+    <p><em>Loading Time Registrations...</em></p>   
+}
+    else
+    {
+        <div class="virtualized">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Start time</th>
+                    <th>End time</th>
+                    <th>Task Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                @* @foreach (var item in TimeRegistrations) *@
+                @* { *@
+                @*     <tr> *@
+                @*         <td>@item.TimeRegistrationId</td> *@
+                @*         <td>@item.StartTime</td> *@
+                @*         <td>@item.EndTime</td> *@
+                @*         <td>@item.PerformedTaskDescription</td> *@
+                @*     </tr> *@
+                @* } *@
+                <Virtualize Items="TimeRegistrations" Context="item">
+                    <tr>
+                        <td>@item.TimeRegistrationId</td>
+                        <td>@item.StartTime</td>
+                        <td>@item.EndTime</td>
+                        <td>@item.PerformedTaskDescription</td>
+                    </tr>
+                </Virtualize>
+                </tbody>
+            </table>
+        </div>
+    }
 
 </section>

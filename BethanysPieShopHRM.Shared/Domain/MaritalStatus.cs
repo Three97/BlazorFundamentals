@@ -1,9 +1,8 @@
-﻿namespace BethanysPieShopHRM.Shared.Domain
+﻿namespace BethanysPieShopHRM.Shared.Domain;
+
+public enum MaritalStatus
 {
-    public enum MaritalStatus
-    {
-        Married,
-        Single,
-        Other
-    }
+    Married,
+    Single,
+    Other
 }
