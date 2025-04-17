@@ -1,14 +1,13 @@
 ﻿using BethanysPieShopHRM.Services;
 
-namespace BethanysPieShopHRM.Components.Widgets
-{
-    public partial class EmployeeCountWidget
-    {
-        public int EmployeeCounter { get; set; }
+namespace BethanysPieShopHRM.Components.Widgets;
 
-        protected override void OnInitialized()
-        {
-            EmployeeCounter = MockDataService.Employees.Count;
-        }
+public partial class EmployeeCountWidget
+{
+    public int EmployeeCounter { get; set; }
+
+    protected override void OnInitialized()
+    {
+        EmployeeCounter = MockDataService.Employees.Count;
     }
 }
