@@ -1,4 +1,5 @@
 ﻿@page "/employeedetail/{EmployeeId:int}"
+@using Microsoft.AspNetCore.Components.QuickGrid
 
 @rendermode InteractiveServer
 
@@ -138,50 +139,19 @@
         </div>
     </div>
 
-@if (TimeRegistrations.Count == 0)
-{
-    <p><em>Loading Time Registrations...</em></p>   
-}
+    @if (QueryableCount > 0)
+    {
+        <QuickGrid Items="@ItemsQueryable" Pagination="@Pagination">
+            <PropertyColumn Property="@(p => p.TimeRegistrationId)" IsDefaultSortColumn="true" Title="ID" Sortable="true"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.StartTime)" Title="Start Time" Sortable="true"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.EndTime)" Title="End Time" Sortable="true"></PropertyColumn>
+            <PropertyColumn Property="@(p => p.PerformedTaskDescription)" Title="Task" Sortable="true" Align="Align.Left"></PropertyColumn>
+        </QuickGrid>
+        <Paginator State="@Pagination" />
+    }
     else
     {
-        <div class="virtualized">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Start time</th>
-                    <th>End time</th>
-                    <th>Task Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                @* @foreach (var item in TimeRegistrations) *@
-                @* { *@
-                @*     <tr> *@
-                @*         <td>@item.TimeRegistrationId</td> *@
-                @*         <td>@item.StartTime</td> *@
-                @*         <td>@item.EndTime</td> *@
-                @*         <td>@item.PerformedTaskDescription</td> *@
-                @*     </tr> *@
-                @* } *@
-                <Virtualize ItemsProvider="LoadTimeRegistrations" ItemSize="itemHeight">
-                    <ItemContent>
-                        <tr>
-                            <td>@context.TimeRegistrationId</td>
-                            <td>@context.StartTime</td>
-                            <td>@context.EndTime</td>
-                            <td>@context.PerformedTaskDescription</td>
-                        </tr>
-                    </ItemContent>
-                    <Placeholder>
-                        <tr>
-                            <td colspan="4" class="text-center">Loading...</td>
-                        </tr>
-                    </Placeholder>
-                </Virtualize>
-                </tbody>
-            </table>
-        </div>
+        <p>No time registrations found for @Employee.FirstName @Employee.LastName</p>
     }
 
 </section>

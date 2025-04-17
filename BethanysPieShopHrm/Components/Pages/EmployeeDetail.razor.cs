@@ -1,6 +1,7 @@
 ﻿using BethanysPieShopHRM.Contracts.Services;
 using BethanysPieShopHRM.Shared.Domain;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.QuickGrid;
 using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace BethanysPieShopHRM.Components.Pages;
@@ -21,11 +22,20 @@ public partial class EmployeeDetail
     
     [Inject]
     public ITimeRegistrationService TimeRegistrationService { get; set; }
+
+    protected IQueryable<TimeRegistration> ItemsQueryable;
+    protected int QueryableCount = 0;
+    public PaginationState Pagination = new() { ItemsPerPage = 10 };
         
     protected override async Task OnInitializedAsync()
     {
         Employee = await EmployeeDataService.GetEmployeeById(EmployeeId);
-        TimeRegistrations = await TimeRegistrationService.GetTimeRegistrationsForEmployee(EmployeeId);
+        // TimeRegistrations = await TimeRegistrationService.GetTimeRegistrationsForEmployee(EmployeeId);
+        ItemsQueryable = (await TimeRegistrationService
+            .GetTimeRegistrationsForEmployee(Employee.EmployeeId))
+            .AsQueryable();
+        
+        QueryableCount = ItemsQueryable.Count();
     }
     
     public async ValueTask<ItemsProviderResult<TimeRegistration>> LoadTimeRegistrations(ItemsProviderRequest request)
