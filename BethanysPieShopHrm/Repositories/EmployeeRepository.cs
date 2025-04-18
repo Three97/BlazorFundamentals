@@ -27,6 +27,54 @@ public class EmployeeRepository : IEmployeeRepository, IDisposable, IAsyncDispos
             .SingleOrDefaultAsync(e => e.EmployeeId == id);
     }
 
+    public async Task<Employee> AddEmployee(Employee employee)
+    {
+        var addedEntity = await _dbContext.Employees.AddAsync(employee);
+        await _dbContext.SaveChangesAsync();
+        
+        return addedEntity.Entity;
+    }
+
+    public async Task<Employee> UpdateEmployee(Employee employee)
+    {
+        var foundEmployee = await _dbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == employee.EmployeeId);
+
+        if (foundEmployee == null) return null;
+        
+        foundEmployee.CountryId = employee.CountryId;
+        foundEmployee.MaritalStatus = employee.MaritalStatus;
+        foundEmployee.BirthDate = employee.BirthDate;
+        foundEmployee.City = employee.City;
+        foundEmployee.Email = employee.Email;
+        foundEmployee.FirstName = employee.FirstName;
+        foundEmployee.LastName = employee.LastName;
+        foundEmployee.Gender = employee.Gender;
+        foundEmployee.PhoneNumber = employee.PhoneNumber;
+        foundEmployee.Smoker = employee.Smoker;
+        foundEmployee.Street = employee.Street;
+        foundEmployee.Zip = employee.Zip;
+        foundEmployee.JobCategoryId = employee.JobCategoryId;
+        foundEmployee.Comment = employee.Comment;
+        foundEmployee.ExitDate = employee.ExitDate;
+        foundEmployee.JoinedDate = employee.JoinedDate;
+        foundEmployee.ImageContent = employee.ImageContent;
+        foundEmployee.ImageName = employee.ImageName;
+
+        await _dbContext.SaveChangesAsync();
+
+        return foundEmployee;
+    }
+
+    public async Task DeleteEmployee(int id)
+    {
+        var foundEmployee = await _dbContext.Employees.FirstOrDefaultAsync(e => e.EmployeeId == id);
+        if (foundEmployee == null) return;
+
+        _dbContext.Employees.Remove(foundEmployee);
+        
+        await _dbContext.SaveChangesAsync();
+    }
+
     public void Dispose()
     {
         _dbContext.Dispose();

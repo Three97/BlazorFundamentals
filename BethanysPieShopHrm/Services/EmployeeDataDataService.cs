@@ -22,4 +22,19 @@ public class EmployeeDataDataService : IEmployeeDataService
     {
         return await _employeeRepository.GetEmployeeById(id);
     }
+
+    public async Task<Employee> AddEmployee(Employee employee)
+    {
+        return await _employeeRepository.AddEmployee(employee);
+    }
+
+    public async Task<Employee?> UpdateEmployee(Employee employee)
+    {
+        return await _employeeRepository.UpdateEmployee(employee);
+    }
+
+    public async Task DeleteEmployee(int id)
+    {
+        await _employeeRepository.DeleteEmployee(id);
+    }
 }
