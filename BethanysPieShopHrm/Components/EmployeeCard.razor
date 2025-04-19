@@ -14,6 +14,9 @@
                 <button class="btn btn-primary btn-sm nb-1" @onclick="@(async () => await EmployeeQuickViewClicked.InvokeAsync(Employee))">
                     Quick View
                 </button>
+                <a href="@($"employeeEdit/{Employee.EmployeeId}")" class="btn btn-outline-primary btn-sm mb-1">
+                    Edit employee
+                </a>
             </div>
         </div>
     </div>

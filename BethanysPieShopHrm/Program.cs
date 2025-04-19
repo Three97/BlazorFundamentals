@@ -19,10 +19,14 @@ builder.Services.AddDbContextFactory<AppDbContext>(options =>
     options.UseSqlite(connectionString);
 });
 
+builder.Services.AddScoped<ICountryRepository, CountryRepository>();
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IJobCategoryRepository, JobCategoryRepository>();
 builder.Services.AddScoped<ITimeRegistrationRepository, TimeRegistrationRepository>();
 
+builder.Services.AddScoped<ICountryDataService, CountryDataService>();
 builder.Services.AddScoped<IEmployeeDataService, EmployeeDataDataService>();
+builder.Services.AddScoped<IJobCategoryDataService, JobCategoryDataService>();
 builder.Services.AddScoped<ITimeRegistrationService, TimeRegistrationService>();
 
 builder.Services.AddScoped<ApplicationState>();
