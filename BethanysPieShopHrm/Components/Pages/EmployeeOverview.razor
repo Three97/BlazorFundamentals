@@ -1,4 +1,4 @@
-﻿@page "/employeeoverview"
+﻿@page "/EmployeeOverview"
 @rendermode InteractiveServer
 
 <PageTitle>Employee Overview</PageTitle>
@@ -17,7 +17,7 @@ else
         {
             <ErrorBoundary>
                 <ChildContent>
-                    <div class="col-6 col-lg-4 col-xl-3 col-xxl-3">
+                    <div class="col-6 col-lg-4 col-xl-3 col-xxl-3 py-2">
                         <EmployeeCard Employee="employee" EmployeeQuickViewClicked="ShowQuickViewPopup"></EmployeeCard>
                     </div>
                 </ChildContent>

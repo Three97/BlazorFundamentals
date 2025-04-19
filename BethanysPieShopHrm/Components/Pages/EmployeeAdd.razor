@@ -1,0 +1,60 @@
+@page "/EmployeeAdd"
+
+@rendermode InteractiveServer
+
+<PageTitle>Add New Employee</PageTitle>
+
+<h3> Add New Employee</h3>
+
+@if (!IsSaved)
+{
+    <EditForm Enhance Model="Employee" OnValidSubmit="OnValidSubmit" FormName="AddEmployeeForm">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" />
+        
+        <div class="row mb-3">
+            <label for="lastName" class="col-form-label col-md-3">Last Name</label>
+            <div class="col-md-8">
+                <InputText id="lastName" class="form-control col-md-8"
+                           @bind-Value="@Employee.LastName" placeholder="Enter last name">
+                </InputText>
+            </div>
+            <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.LastName)"></ValidationMessage>
+        </div>
+        <div class="row mb-3">
+            <label for="firstName" class="col-form-label col-md-3">First Name</label>
+            <div class="col-md-8">
+                <InputText id="firstName" class="form-control col-md-8"
+                           @bind-Value="@Employee.FirstName" placeholder="Enter first name">
+                </InputText>
+            </div>
+            <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.FirstName)"></ValidationMessage>
+        </div>
+        <div class="row mb-3">
+            <label for="email" class="col-form-label col-md-3">Email</label>
+            <div class="col-md-8">
+                <InputText id="email" class="form-control col-md-8"
+                           @bind-Value="@Employee.Email" placeholder="Enter email">
+                </InputText>
+            </div>
+            <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.Email)"></ValidationMessage>
+        </div>
+        <div class="row mb-3">
+            <label for="comment" class="col-form-label col-md-3">Comment</label>
+            <div class="col-md-8">
+                <InputTextArea id="comment" class="form-control col-md-8"
+                               @bind-Value="@Employee.Comment" placeholder="Enter comment">
+                </InputTextArea>
+            </div>
+        </div>
+        
+        <div>
+            <button class="btn btn-outline-primary ms-1">Submit</button>
+        </div>
+        
+    </EditForm>
+}
+else
+{
+    <h4 class="text-success">@Message</h4>
+}
