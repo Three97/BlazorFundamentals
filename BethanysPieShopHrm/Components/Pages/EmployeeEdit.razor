@@ -14,6 +14,15 @@
         <EditForm Enhance Model="Employee" FormName="EditEmployeeForm" method="post"
                   OnValidSubmit="@HandleValidSubmit"
                   OnInvalidSubmit="@HandleInvalidSubmit">
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" />
+
+            <div class="row mb-3">
+                <label for="image" class="col-12 col-sm-3">Select image</label>
+                <div class="col-md-8">
+                    <InputFile id="image" OnChange="OnInputFileChange"></InputFile>
+                </div>
+            </div>
             <div class="row mb-3">
                 <label for="lastName" class="col-form-label col-md-3">Last Name</label>
                 <div class="col-md-8">
@@ -21,6 +30,7 @@
                                @bind-Value="@Employee.LastName" placeholder="Enter last name">
                     </InputText>
                 </div>
+                <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.LastName)" />
             </div>
             <div class="row mb-3">
                 <label for="firstName" class="col-form-label col-md-3">First Name</label>
@@ -29,6 +39,7 @@
                                @bind-Value="@Employee.FirstName" placeholder="Enter first name">
                     </InputText>
                 </div>
+                <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.FirstName)" />
             </div>
             <div class="row mb-3">
                 <label for="birthDate" class="col-form-label col-md-3">Birthdate</label>
@@ -45,6 +56,7 @@
                                @bind-Value="@Employee.Email" placeholder="Enter email">
                     </InputText>
                 </div>
+                <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.Email)" />
             </div>
             <div class="row mb-3">
                 <label for="street" class="col-form-label col-md-3">Street</label>
@@ -168,15 +180,17 @@
                                    @bind-Value="@Employee.Comment" placeholder="Enter comment">
                     </InputTextArea>
                 </div>
+                <ValidationMessage class="offset-md-3 col-md-8 text-danger" For="@(() => Employee.Comment)" />
             </div>
-            
+
             <button type="submit" class="btn btn-primary me-1">Save employee</button>
-            
+
             <button type="button" class="btn btn-danger mx-1" @onclick="@DeleteEmployee">Delete</button>
-            
+
             <button type="button" class="btn btn-outline-primary ms-1" @onclick="@NavigateToOverview">
                 Back to overview
             </button>
+            
         </EditForm>
     </section>
 }

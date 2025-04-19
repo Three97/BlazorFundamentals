@@ -20,11 +20,16 @@ public partial class EmployeeAdd : ComponentBase
         Employee ??= new ();
     }
 
-    private async Task OnSubmit()
+    private async Task OnValidSubmit()
     {
         await EmployeeDataService.AddEmployee(Employee);
 
         IsSaved = true;
         Message = "Employee added successfully";
+    }
+
+    private async Task OnInvalidSubmit()
+    {
+        
     }
 }

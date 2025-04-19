@@ -1,6 +1,7 @@
 using BethanysPieShopHRM.Contracts.Services;
 using BethanysPieShopHRM.Shared.Domain;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace BethanysPieShopHRM.Components.Pages;
 
@@ -32,6 +33,8 @@ public partial class EmployeeEdit : ComponentBase
     public List<JobCategory> JobCategories { get; set; } = [];
     public List<Country> Countries { get; set; } = [];
 
+    protected IBrowserFile? SelectedFile;
+    
     protected override async Task OnInitializedAsync()
     {
         IsSaved = false;
@@ -43,6 +46,17 @@ public partial class EmployeeEdit : ComponentBase
 
     protected async Task HandleValidSubmit()
     {
+        if (SelectedFile != null)
+        {
+            var file = SelectedFile;
+            Stream stream = file.OpenReadStream();
+            MemoryStream memoryStream = new MemoryStream();
+            await stream.CopyToAsync(memoryStream);
+
+            Employee.ImageName = file.Name;
+            Employee.ImageContent = memoryStream.ToArray();
+        }
+        
         await EmployeeDataService.UpdateEmployee(Employee);
         
         IsSaved = true;
@@ -68,5 +82,11 @@ public partial class EmployeeEdit : ComponentBase
     protected async Task NavigateToOverview()
     {
         NavigationManager?.NavigateTo("/EmployeeOverview");
+    }
+
+    private void OnInputFileChange(InputFileChangeEventArgs obj)
+    {
+        SelectedFile = obj.File;
+        StateHasChanged();
     }
 }

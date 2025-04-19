@@ -6,11 +6,17 @@ namespace BethanysPieShopHRM.Services;
 
 public class EmployeeDataDataService : IEmployeeDataService
 {
-    private IEmployeeRepository _employeeRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IWebHostEnvironment _webHostEnvironment;
+    private readonly IEmployeeRepository _employeeRepository;
     
-    public EmployeeDataDataService(IEmployeeRepository employeeRepository)
+    public EmployeeDataDataService(IEmployeeRepository employeeRepository, 
+        IHttpContextAccessor httpContextAccessor,
+        IWebHostEnvironment webHostEnvironment)
     {
         this._employeeRepository = employeeRepository;
+        this._httpContextAccessor = httpContextAccessor;
+        this._webHostEnvironment = webHostEnvironment;
     }
     
     public async Task<IEnumerable<Employee?>> GetEmployees()
@@ -30,6 +36,17 @@ public class EmployeeDataDataService : IEmployeeDataService
 
     public async Task<Employee?> UpdateEmployee(Employee employee)
     {
+        if (employee.ImageContent != null)
+        {
+            string currentUrl = _httpContextAccessor.HttpContext.Request.Host.Value;
+            var path = $"{_webHostEnvironment.WebRootPath}/uploads/{employee.ImageName}";
+            var fileStream = System.IO.File.Create(path);
+            fileStream.Write(employee.ImageContent, 0, employee.ImageContent.Length);
+            fileStream.Close();
+
+            employee.ImageName = $"https://{currentUrl}/uploads/{employee.ImageName}";
+        }
+        
         return await _employeeRepository.UpdateEmployee(employee);
     }
 
